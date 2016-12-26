@@ -39,3 +39,27 @@ class Ideone
 		return (int) right;
 	}
 }
+
+// Solved with TreeSet
+
+public class Solution {
+    
+    // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+    // 1, 4, 9
+    // 2, 5, 9
+    public int findRadius(int[] houses, int[] heaters) {
+        Arrays.sort(houses); Arrays.sort(heaters);
+    	TreeSet<Integer> heats = new TreeSet<Integer>();
+    	int maxDis = 0;
+    	for (int i = 0; i < heaters.length; i++) heats.add(heaters[i]);
+		for (int h = 0; h < houses.length; h++) {
+			Integer heater1 = heats.ceiling(houses[h]);
+			int m = Integer.MAX_VALUE;
+			if (heater1 != null) m = Math.abs(heater1 - houses[h]);
+			Integer heater2 = heats.floor(houses[h]);
+			if (heater2 != null) m = Math.min(m, Math.abs(heater2 - houses[h]));
+			maxDis = Math.max(maxDis, m);
+		}
+		return maxDis;
+    }
+}
