@@ -56,7 +56,22 @@ public class Solution {
 		}
 		return total;
 	}
-	// 1000, 1000, 1000, 111 -> m = 9, n = 3 -> 3
-	// 0, 1, 10 -> m = 
-	// 0, 1, 10, 0001, 111001 -> m = 3, n = 2 -> 
+}
+
+// More intelligent solution
+public class Solution {
+	public int findMaxForm(String[] strs, int m, int n) {
+        int[][] dp = new int[m+1][n+1];
+		for (String s: strs) {
+			int count0 = s.length() - s.replace("0", "").length();
+			int count1 = s.length() - count0;
+			
+			for (int i = m; i >= count0; i--) {
+				for (int j = n; j >= count1; j--) {
+					dp[i][j] = Math.max(dp[i][j], 1 + dp[i-count0][j-count1]);
+				}
+			}
+		}
+		return dp[m][n];
+	}
 }
