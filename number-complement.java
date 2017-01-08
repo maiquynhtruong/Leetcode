@@ -25,4 +25,9 @@ class Ideone
 		}
 		return retVal;
 	}
+	
+	public static int findComplement(int num) {
+		int m = (Integer.highestOneBit(num) << 1) - 1;
+		return num ^ m;
+	}
 }
