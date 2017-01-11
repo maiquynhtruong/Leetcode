@@ -33,4 +33,21 @@ class Ideone
 		}
 		return smallest;
 	}
+	
+	public static int shortestWordDistance(String[] strs, String word1, String word2) {
+		int smallest = Integer.MAX_VALUE;
+		int idx1 = -1; 
+		int idx2 = -1;
+		for (int i = 0; i < strs.length; i++) {
+			if (strs[i].equals(word1)) {
+				idx1 = i;
+				if (idx2 != -1) smallest = Math.min(smallest, Math.abs(idx1 - idx2));
+			}
+			if (strs[i].equals(word2)) {
+				idx2 = i;
+				if (idx1 != -1) smallest = Math.min(smallest, Math.abs(idx1 - idx2));
+			}
+		}
+		return smallest;
+	}
 }
