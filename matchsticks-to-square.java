@@ -20,7 +20,7 @@ class Ideone
         	int[] square = new int[4];
         	for (int i = 0; i < 4; i++) square[i] = 0;
         	System.out.println(makeSquare(nums, sum / 4, square, 0));
-        }
+        	}
 	}
 	
 	public static void reverse(int[] nums) {
@@ -40,6 +40,11 @@ class Ideone
 		}
         for (int i = 0; i < 4; i++) {
         	if (square[i] + nums[index] > part) continue;
+		int j = i;
+		while (--j >= 0) 
+			if (square[i] == square[j])
+				break;
+		if (j < 0) continue;
     		square[i] += nums[index];
     		if (makeSquare(nums, part, square, index+1)) {
     			return true;
