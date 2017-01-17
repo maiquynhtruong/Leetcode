@@ -34,4 +34,29 @@ class Ideone
 		}
 		return null;
 	}
+	
+	public ListNode detectCycle(ListNode head) {
+        if (head == null || head.next == null) return null;
+		ListNode slow = head, fast = head.next;
+		while (fast != null && fast.next != null) {
+			// System.out.println("slow: " + slow.val + ", fast= " + fast.val);
+			if (slow == fast) {
+				// System.out.println("break");
+				break;
+			}
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		// System.out.println("outside of while");
+		if (slow == fast) {
+			slow = head; fast = fast.next;
+			// System.out.println("going for the start");
+			while (slow != fast) {
+				// System.out.println("slow: " + slow.val + ", fast= " + fast.val);
+				slow = slow.next;
+				fast = fast.next;
+			}
+			return slow;
+		} else return null;
+	}
 }
