@@ -41,4 +41,21 @@ class Ideone
 			}
 		}	
 	}
+	
+	// Shorter
+	static double minVal = Integer.MAX_VALUE;
+	static int curMin = Integer.MAX_VALUE;
+	public static int closestValue(TreeNode root, double target) {
+		if (root == null) {return Integer.MAX_VALUE;}
+		if (Math.abs(root.val - target) < minVal) {
+			minVal = Math.abs(root.val - target);
+			curMin = root.val;
+		}
+		if (root.val < target) {
+			closestValue(root.right, target);
+		} else {
+			closestValue(root.left, target);
+		}	
+		return curMin;
+	}
 }
