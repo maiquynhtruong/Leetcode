@@ -28,6 +28,7 @@ class Ideone
  / \
 4   5
 	 * */
+	// Recursive
 	public static int sumOfLeftLeaves(TreeNode root) {
 		// System.out.println("root= " + root.val);
 		if (root == null) {
@@ -46,4 +47,29 @@ class Ideone
 		}
 		return sum;
 	}
+	
+	// Iterative
+	public int sumOfLeftLeaves(TreeNode root) {
+        if(root == null) return 0;
+    	int ans = 0;
+    	Stack<TreeNode> s = new Stack<TreeNode>();
+    	s.push(root);
+    	while (!s.empty()) {
+    		root = s.pop();
+    		if (root.left != null) {
+    			if (root.left.left == null && root.left.right == null) {
+    				ans += root.left.val;
+    			} else {
+    				s.push(root.left);
+    			}
+    		}
+			if (root.right != null) {
+				if (root.right.left != null || root.right.right != null) {
+					s.push(root.right);
+				}
+			}
+    	}
+    	return ans;
+    	
+    }
 }
