@@ -25,4 +25,28 @@ class Ideone
 			}
 		}
 	}
+	
+	public static String parseTernary(String expression) {
+		if (expression == null || expression.length() == 0) {
+			return expression;
+		}
+		Stack<Character> s = new Stack<Character>();
+		for (int i = expression.length() - 1; i >= 0; i--) {
+			char c = expression.charAt(i);
+			if (!s.empty() && s.peek() == '?') {
+				s.pop(); // remove '?'
+				char first = s.pop();
+				s.pop(); // remove ':'
+				char second = s.pop();
+				if (c == 'T') {
+					s.push(first);
+				} else {
+					s.push(second);
+				}
+			} else {
+				s.push(c);
+			}
+		}
+		return String.valueOf(s.peek());
+	}
 }
