@@ -48,4 +48,24 @@ class Ideone
 			helper(root, root.right, stack);
 		}
 	}
+	
+	
+	// The second way of using height of node
+	
+	public static List<List<Integer>> findLeaves(TreeNode root) {
+		// The height of a node is the number of edges from the node to the deepest leaf
+		List<List<Integer>> list = new ArrayList<List<Integer>>();
+		height(root, list);
+		return list;
+	}
+
+	public static int height(TreeNode node, List<List<Integer>> list) {
+		if (node == null) return -1;
+		// the height of leaf is 0
+		// h(node) = 1 + max(h(node.left), h(node.right))
+		int level = 1+Math.max(height(node.left, list), height(node.right, list));
+		if (level >= list.size()) list.add(new ArrayList<Integer>());
+		list.get(level).add(node.val);
+		return level;
+	}
 }
