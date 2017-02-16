@@ -21,30 +21,46 @@ class Ideone
 	
 	
 	public double[] calcEquation(String[][] equations, double[] values, String[][] queries) {
-		HashMap<String, HashMap<String, Double>> hm = new HashMap<String, HashMap<String, Double>>();
+		HashMap<String, ArrayList<String>> pairs = new HashMap<String, ArrayList<String>>();
+		HashMap<String, ArrayList<Double>> weights = new HashMap<String, ArrayList<Double>>();
+
 		for (int i = 0; i < equations.length; i++) {
-			String[] strs = equations[i];
-			if (!hm.containsKey(strs[0])) {
-				HashMap<String, Double> sub = new HashMap<String, Double>();
-				hm.put(strs[0], sub);
+			if (!pairs.containsKey(equations[i][0])) {
+				pairs.put(equations[i][0], new ArrayList<String>());
+				weights.put(equations[i][0], new ArrayList<Double>());
 			}
-				hm.get(strs[0]).put(strs[1], values[i]);
-				if (!hm.containsKey(strs[1])) {
-					HashMap<String, Double> sub = new HashMap<String, Double>();
-					hm.put(strs[1], sub);
+				if (!pairs.containsKey(equations[i][1])) {
+					pairs.put(equations[i][1], new ArrayList<String>());
+					weights.put(equations[i][1], new ArrayList<Double>());
 				}
-				hm.get(strs[1]).put(strs[1], 1/values[i]);
+				pairs.get(equations[i][0]).add(equations[i][1]);
+				weights.get(equations[i][0]).add(values[i]);
+				pairs.get(equations[i][1]).add(equations[i][0]);
+				weights.get(equations[i][1]).add(1/values[i]);
 		}
 		double[] results = new double[queries.length];
 		for (int i = 0; i < queries.length; i++) {
-		    if (hm.containsKey(queries[i][0])) {
-			    HashMap<String, Double> sub = hm.get(queries[i][0]);
-			    if (sub.containsKey(queries[i][1])) results[i] = sub.get(queries[i][1]);
-			    else results[i] = -1.0;
-		    } else {
-			    results[i] = -1.0;
-		    }
+			    double retVal = dfs(queries[i][0], queries[i][1], 1.0, pairs, weights, new HashSet<String>());
+			    if (retVal == 0.0) results[i] = -1.0; else results[i] = retVal;
 		}
 		return results;   
-	    }
+    	}	
+    	public double dfs(String startNode, String endNode, double value, HashMap<String, ArrayList<String>> pairs, 
+	    HashMap<String, ArrayList<Double>> weights, HashSet<String> visited) {
+		if (visited.contains(startNode)) return 0.0;
+		if (!pairs.containsKey(startNode)) return 0.0;
+		if (startNode.equals(endNode)) return value;
+		List<String> toNodes = pairs.get(startNode);
+		visited.add(startNode);
+		double retVal = 0.0;
+		for (int i = 0; i < toNodes.size(); i++) {
+		    String next = toNodes.get(i);
+		    retVal = dfs(next, endNode, value * weights.get(startNode).get(i), pairs, weights, visited);
+		    if (retVal != 0.0) {
+			break;
+		    }
+		}
+		visited.remove(startNode); // remove because there might be a case of a/b = 3.0 and c/b = 2.0
+		return retVal;
+    	}
 }
