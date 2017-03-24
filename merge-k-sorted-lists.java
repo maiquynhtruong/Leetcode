@@ -6,31 +6,40 @@
  *     ListNode(int x) { val = x; }
  * }
  */
-public class Solution {
-    public ListNode mergeKLists(ListNode[] lists) {
-        ListNode res = new ListNode(-1);
-        while (!empty(lists)) {
-            for (int i = 0; i < lists.length; i++) {
-                findSmaller(lists, lists[i], res);
-            }
-        }
-        return res.next;
-    }
-    
-    public void findSmaller(ListNode[] lists, ListNode node, ListNode res) {
-        for (int i = 0; i < lists.length; i++) {
-            if (lists[i] != node && lists[i].val <= node.val) {
-                res.next = lists[i];
-                lists[i] = lists[i].next;
-            }
-        }
-        res.next = node;
-        node = node.next;
-    }
-    
-    public boolean empty(ListNode[] lists) {
-        for (int i = 0; i < lists.length; i++)
-            if (lists[i] != null) return false;
-        return true;
-    }
+/* package whatever; // don't place package name! */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Ideone
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		
+	}
+
+	public static ListNode mergeTwoLists (ListNode l1, ListNode l2) {
+		if (l1 == null) return l2;
+		if (l2 == null) return l1;
+		if (l1.val > l2.val) {
+			l2.next = mergeTwoLists(l1.next, l2);
+			return l2;
+		} else {
+			l1.next = mergeTwoLists(l1, l2.next);
+			return l1;
+		}
+	}
+	
+	public static ListNode mergeLists(ListNode[] left, ListNode[] right) {
+		if (left.length == 1 && right.length == 1) 
+			return mergeTwoLists(left[0], right[0]);
+		else {
+			int len = left.length + right.length;
+			ListNode leftNode = mergeLists();
+			ListNode rightNode = mergeLists();
+			return mergeTwoLists(leftNode, rightNode);
+		}
+	}
 }
