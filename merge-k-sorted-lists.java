@@ -38,4 +38,17 @@ class Ideone
 		int len = right - left + 1;
 		return mergeTwoLists(mergeLists(lists, 0, len/2), mergeLists(lists, len/2+1, len));
 	}
+	
+	public static ListNode mergeLists(ListNode[] lists, int len) {
+		
+		while (len != 0) {
+			int i = 0, j = len;
+			while (i < j) {
+				lists[i] = mergeTwoLists(lists[i], lists[j]);
+				i++; j--;
+			}
+			len = j;
+		}
+		return lists[0];
+	}
 }
