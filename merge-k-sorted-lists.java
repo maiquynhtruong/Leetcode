@@ -17,7 +17,7 @@ class Ideone
 {
 	public static void main (String[] args) throws java.lang.Exception
 	{
-		
+		return mergeLists(lists, 0, lists.length-1);
 	}
 
 	public static ListNode mergeTwoLists (ListNode l1, ListNode l2) {
@@ -32,14 +32,10 @@ class Ideone
 		}
 	}
 	
-	public static ListNode mergeLists(ListNode[] left, ListNode[] right) {
-		if (left.length == 1 && right.length == 1) 
-			return mergeTwoLists(left[0], right[0]);
-		else {
-			int len = left.length + right.length;
-			ListNode leftNode = mergeLists();
-			ListNode rightNode = mergeLists();
-			return mergeTwoLists(leftNode, rightNode);
-		}
+	public static ListNode mergeLists(ListNode[] lists, int left, int right) {
+		if (left > right) return null;
+		if (left == right) return lists[left];
+		int len = right - left + 1;
+		return mergeTwoLists(mergeLists(lists, 0, len/2), mergeLists(lists, len/2+1, len));
 	}
 }
