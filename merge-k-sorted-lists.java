@@ -51,4 +51,26 @@ class Ideone
 		}
 		return lists[0];
 	}
+	
+	// using priority queue
+	public ListNode mergeKLists(List<ListNode> lists) {
+		PriorityQueue<ListNode> p = new PriorityQueue<lists.size(), new Comparator<ListNode>() {
+			public int compareTo(ListNode other) {
+				return this.val - other.val;
+			}
+		}
+		ListNode head = new ListNode(0);
+		ListNode dummy = head;
+		for (ListNode listNode : lists) {
+			if (listNode != null) p.add(listNode);
+		}
+		while (!p.isEmpty()) {
+			dummy.next = p.poll();
+			dummy = dummy.next;
+			
+			if (dummy.next != null) 
+				p.add(dummy.next);
+		}
+		return head.next;
+	}
 }
