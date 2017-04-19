@@ -6,9 +6,10 @@ public class Solution {
         for (int i = 1; i <= n; i++) 
             for (int j = 0; j < 2; j++)
                 for (int k = 0; k < 3; k++) {
-                    int value = dp[i-1][j][k]; // P for present
-                    if (j > 0) value = (value + dp[i-1][j-1][2]) % Integer.MAX_VAL;
-                    if (k > 0) value = (value + dp[i-1][1][k-1]) % Integer.MAX_VAL;
+                    int value = dp[i-1][j][2]; // P for present
+                    if (j > 0) value = (value + dp[i-1][j-1][2]) % Integer.MAX_VAL; // A for absent
+                    if (k > 0) value = (value + dp[i-1][1][k-1]) % Integer.MAX_VAL; // L for late
+                    dp[i][j][k] = val;
                 }
         return dp[n][1][2];
     }
