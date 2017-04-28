@@ -1,19 +1,15 @@
 public class Solution {
     public int removeBoxes(int[] boxes) {
-        remove(boxes);
+        int n = boxes.length;
+        int[][][] dp = new int[n+1][n+1][n+1];
+        
+        for (int l = 0; l < n+1; l++)
+            for (int r = 0; k < n+1; k++)
+                for (int i = l; i <= r; i++) {
+                    if (boxes[i] == boxes[r])
+                    dp[l][r][k] = Math.max(dp[l][r][k], dp[l][i][k+1] + dp[i+1][r][0]);
+                }
+        return dp[0][n-1][0];
     }
-    public int remove(int[] boxes) {
-        if (boxes.length == 0) return 0;
-        res = 0;
-        for (int i = 0, j = i+1;i < boxes.length; i++) {
-            while (j < boxes.length && boxes[i] == boxes[j]) j++;
-            int[] newBoxes = new int[boxes.length - (j - i)];
-            for (int k = 0, p = 0; k < newBoxes.length; k++) {
-                if (k == i) k = j;
-                newBox[p++] = boxes[k];
-            }
-            res = Math.max(res, remove(newBoxes) + (j-i) * (j-i));
-        }
-        return res;
-    }
+    
 }
