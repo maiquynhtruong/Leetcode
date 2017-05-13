@@ -20,6 +20,11 @@ public class Solution {
     }
     
     public int binaryToInteger(boolean[] used) {
-           
+        int retVal = 0;
+        for (boolean i : used) {
+            retVal <<= 1;
+            if (i) retVal |= 1;
+        }
+        return retVal;
     }
 }
