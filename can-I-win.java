@@ -15,14 +15,20 @@ public class Solution {
         if (total <= 0) return false;
         int usedArray = format(used);
         if (!hm.containsKey(usedArray)) {
-            for (int i = 1; i <= used.length; i++) 
+            for (int i = 1; i <= used.length; i++) {
                 if (!used[i]) {
                     used[i] = true;
-                    if (canWin(total - i, ))
-                        hm.put(, true);
+                    if (!canWin(total - i)) {
+                        hm.put(usedArray, true);
+                        used[i] = false;
+                        return true;
+                    }
                     used[i] = false;
                 }
+            }
+            hm.put(key, false);
         }
+        return false;
     }
     
     public int binaryToInteger(boolean[] used) {
