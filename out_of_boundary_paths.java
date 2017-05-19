@@ -7,6 +7,6 @@ public class Solution {
                     dp[ni][ii][ji] = ((ii == 0 ? 1 : dp[ni-1][ii-1][ji]) + (ii == m ? 1 : dp[ni-1][ii+1][ji]) + 
                                       (ji == 0 ? 1 : dp[ni-1][ii][ji-1] + (ji == n ? 1 : dp[ni-1][ii][ji+1]));
                  }
-        return dp[N][m-1][n-1];
+        return dp[N][i][j];
     }
 }
