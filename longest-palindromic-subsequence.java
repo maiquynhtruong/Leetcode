@@ -4,9 +4,9 @@ public class Solution {
         int dp[][] = new int[len][len];
         for (int i = 0; i < len; i++)
             for (int j = 0; j < i; j++) {
-                if (s.charAt(i) == s.charAt(j)) dp[i][j] = dp[i-1][j-1] + 2;
+                if (s.charAt(i) == s.charAt(j)) dp[i][j] = dp[i+1][j-1] + 2;
                 else {
-                    dp[i][j] = Math.max(dp[i][j-1], dp[i-1][j-1]);
+                    dp[i][j] = Math.max(dp[i][j-1], dp[i+1][j]);
                 }
             }
         return dp[0][len];
