@@ -9,4 +9,15 @@ public class Solution {
                 }
         return friendGraph.size();
     }
+    
+    public void union(int i, int j) {
+        int root_i = find(i);
+        int root_j= find(j;
+    }
+    public int find(int i) {
+        while (i != parents[i]) {
+            parent[p = parent[parent[i]];
+            p = parent[i];
+        }
+    }
 }
