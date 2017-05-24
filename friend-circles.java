@@ -1,3 +1,4 @@
+/****************************************Union find solution***************************************/
 public class Solution {
     int[] parent = new int[];
     int count;
@@ -18,7 +19,7 @@ public class Solution {
         int root_j= find(j;
         if (root_i == root_j) return;
         parent[root_i] = parent[root_j];
-        count--;
+        count--; // still don't get this one
     }
     public int find(int i) {
         while (i != parents[i]) {
@@ -26,5 +27,27 @@ public class Solution {
             i = parent[i];
         }
         return i;
+    }
+}
+                   
+                   /********************DFS solution***************************/
+
+public class Solution {
+    public int findCircleNum(int[][] M) {
+        boolean[] visited = new boolean[M.length];
+        for (int i = 0; i < M.length; i++) {
+            if (!visited[i]) {
+                count++;
+                dfs(M, visited, i);
+            }
+        }
+        return count;
+    }
+    public void dfs(int[][] M, boolean[] visited, int i) {
+        for (int j = 0; j < M.length; j++) {
+            if (M[i][j] && !visited[j]) {
+                dfs(M, visited, j);
+            }
+        }
     }
 }
