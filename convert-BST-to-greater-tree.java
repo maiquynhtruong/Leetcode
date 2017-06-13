@@ -14,15 +14,19 @@
          5  9 12   15
  */
 public class Solution {
-    public void convertBSTtoGT(TreeNode root, int passedDown) {
+    public void convertBST1(TreeNode root) {
         if (root == null) return;
-        convertBSTtoGT(root.right, 0);
-        root.val = root.val + passedDown;
-        if (root.right != null) root.val += root.right.val;
-        convertBSTtoGT(root.left, root.val);
+        TreeNode cur = root.right;
+        while (cur != null) {
+            convertBST1(cur);
+            root.val += cur.val;
+            cur = cur.left;
+        }
+        
     }
     public TreeNode convertBST(TreeNode root) {
-        convertBSTtoGT(root);
+        convertBST1(root);
+        convertBST1(root.left);
         return root;
     }
 }
