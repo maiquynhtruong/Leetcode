@@ -12,21 +12,19 @@
            8     13
           / \   / \
          5  9 12   15
+         It is reversed inorder traversal
  */
 public class Solution {
-    public void convertBST1(TreeNode root) {
+    int sum = 0;
+    public TreeNode convert(TreeNode root) {
         if (root == null) return;
-        TreeNode cur = root.right;
-        while (cur != null) {
-            convertBST1(cur);
-            root.val += cur.val;
-            cur = cur.left;
-        }
-        
+        convert(root.right);
+        sum += cur.val;
+        cur.val = sum;
+        convert(root.left);
     }
     public TreeNode convertBST(TreeNode root) {
-        convertBST1(root);
-        convertBST1(root.left);
+        convert(root);
         return root;
     }
 }
