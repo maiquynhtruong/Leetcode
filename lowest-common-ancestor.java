@@ -9,9 +9,12 @@
  */
 public class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        // while (can still find both nodes in the subtree of the current node) {
-        // try the left
-        // try the right
-        
+        if (p.val < root.val && q.val < root.val) {
+            root = root.left;    
+        } else if (p.val > root.val && q.val > root.val) {
+            root = root.right;
+        } else {
+            return root;
+        }
     }
 }
