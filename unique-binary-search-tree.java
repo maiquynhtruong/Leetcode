@@ -1,26 +1,15 @@
 public class Solution {
     
     public int numTrees(int n) {
-        boolean used[] = new boolean[n+1];
-        int res = 0;
+        int[] g = new int[n+1];
+        g[0] = g[1] = 1;
         for (int i = 1; i <= n; i++) {
-            res += count(visited, 1);
-        }
-    }
-    
-    public int count(boolean[] visited, int numUsed) {
-        if (numUsed == n) return 1;
-        int res = 0;
-        for (int i = 1; i <= n; i++) {
-            if (!visited[i]) {
-                visited[i] = true;
-                res += count(visited, i, numUsed+1);
-                visited[i] = false;sni
+            for (int j = 1; j <= i; j++) {
+                g[i] += g[j-1]*g[i-j];   
             }
         }
-        return res;
+        return g[n];
     }
-    
 }
 
 /**
