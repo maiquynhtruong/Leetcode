@@ -27,7 +27,32 @@
  * }
  */
 public class Solution {
+    // "[123,[456,[789]]]"
+    // "[[123],[456,[789]]]"
+    // "[[123], 321,[[456],[789], [101, 112], 131]]"
     public NestedInteger deserialize(String s) {
-        
+        Stack<NestedInteger> s = new Stack<NestedInteger>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '[') {
+                NestedInteger integer = new NestedInteger();
+                s.push(integer);
+            } else if (c == ']') {
+                NestedInteger integer = s.pop();
+                NestedInteger prevInt = s.pop();
+                prevInt.add(integer);
+            } else if (c == ',') {
+                if (s.charAt(i-1) != ']') {
+                    NestedInteger integer = s.pop();
+                    NestedInteger prevInt = s.pop();
+                    prevInt.add(integer);
+                }
+            } else {
+                NestedInteger integer = s.pop();
+                int cur = integer.getInteger();
+                s.push(integer.setInteger(cur*10 + c - '0');
+            }
+        }
     }
 }
+
