@@ -30,29 +30,35 @@ public class Solution {
     // "[123,[456,[789]]]"
     // "[[123],[456,[789]]]"
     // "[[123], 321,[[456],[789], [101, 112], 131]]"
-    public NestedInteger deserialize(String s) {
+    public NestedInteger deserialize(String str) {
+        if (str.isEmpty()) return null;
+        if (str.charAt(0) == '[') return new NestedInteger(Integer.valueOf(str));
+        NestedInteger curInt;
         Stack<NestedInteger> s = new Stack<NestedInteger>();
+        int l = 0; // points to start of number substring
+        int r = 0; // points to end of number substring
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if (c == '[') {
-                NestedInteger integer = new NestedInteger();
-                s.push(integer);
+                if (curInt != null) s.push(curInt);
+                curInt = new NestedInteger();
             } else if (c == ']') {
-                NestedInteger integer = s.pop();
-                NestedInteger prevInt = s.pop();
-                prevInt.add(integer);
+                String num = str.substring(l, r);
+                if (!num.isEmpty()) curInt.add(new NestedInteger(Integer.valueOf(num)));
+                if (!s.isEmpty()) {
+                    NestedInteger prevInt = s.pop();
+                    prevInt.add(curInt);
+                    curInt = prevInt;
+                }
             } else if (c == ',') {
                 if (s.charAt(i-1) != ']') {
-                    NestedInteger integer = s.pop();
-                    NestedInteger prevInt = s.pop();
-                    prevInt.add(integer);
+                    String num = str.substring(l, r);
+                    curInt.add(new NestedInteger(Integer.valueOf(num)));
                 }
-            } else {
-                NestedInteger integer = s.pop();
-                int cur = integer.getInteger();
-                s.push(integer.setInteger(cur*10 + c - '0');
             }
+            l = r + 1;
         }
     }
+    return curInt;
 }
 
