@@ -19,7 +19,9 @@ public class Solution {
     int max = Integer.MIN_VALUE;
     public int maxPath(TreeNode root) {
         if (root == null) return 0;
-        root.val = root.val + Math.max(maxPathSum(root.left), maxPathSum(root.right));
+        int left = Math.max(maxPathSum(root.left), 0);
+        int right = Math.max(maxPathSum(root.right), 0);
+        root.val = root.val + Math.max(left, right);
         max = Math.max(max, root.val);
         return root.val;
     }
