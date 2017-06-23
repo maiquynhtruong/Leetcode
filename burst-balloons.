@@ -1,0 +1,18 @@
+public class Solution {
+    public int maxCoins(int[] numArr) {
+        int nums[] = new int[numArr.length+2];
+        int n = 1;
+        for (int num : numArr) if (num > 0) nums[n++] = num;
+        nums[0] = 1; nums[n++] = 1;
+        int dp[][] = new dp[n][n];
+        for (int len = 2; len < n; len++) {
+            for (int left = 0; left < n-len; left++) {
+                int right = left + len;
+                for (int i = left+1; i < right; i++) {
+                    dp[left][right] = Math.max(dp[left][right], nums[left]*nums[i]*nums[right] + dp[left][i] + dp[i][right]);
+                }
+            }
+        }
+        return dp[0][n-1];
+    }
+}
