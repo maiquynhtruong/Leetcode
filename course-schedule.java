@@ -1,13 +1,19 @@
 public class Solution {
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-        LinkedList<Integer> list = new LinkedList<Integer>();
-        Set<Integer> set = new HashSet<Integer>();
-        while (!set.empty()) {
-            int v = set.pop();
-            for (int i : getVertices(v)) {
-                if (neighbors[i].contains(v))set.push(i);   
-            }
-            list.add(v);
+    public boolean canFinish(int numCourses, int[][] prereq) {
+        ArrayList[] graph = new ArrayList[numCourses];
+        int[] incoming = new int[numCourses];
+        for (int i = 0; i < prereq.length; i++) {
+            incoming[prereq[i][1]]++;
+            graph[prereq[i][0]].add(prereq[i][1]);
+        }
+        
+        
+        Queue<Integer> q = new LinkedList<Integer>();
+        int count = 0;
+        while (!q.isEmpty()) {
+            int v = q.poll(); 
+            count++;
+            
         }
     }
 }
