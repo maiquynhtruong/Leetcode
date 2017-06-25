@@ -8,6 +8,12 @@ public class Solution {
             graph[prereq[i][0]].add(prereq[i][1]);
         }
         
+        for (int i = 0; i < numCourses; i++) 
+            if (degree[i] == 0) {
+                q.add(i);
+                count++;
+            }
+        
         Queue<Integer> q = new LinkedList<Integer>();
         int count = 0;
         while (!q.isEmpty()) {
