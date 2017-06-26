@@ -32,6 +32,7 @@ class Ideone
 
 		    if (tail.next != null) pq.add(tail.next);
 		}
+		return head.next;
 	}
 	public static void main (String[] args) throws java.lang.Exception
 	{
