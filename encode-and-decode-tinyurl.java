@@ -3,7 +3,11 @@ public class Codec {
     // Encodes a URL to a shortened URL.
     public String encode(String longUrl) {
         String hashCode = generateRandomHashCode(longUrl);
-        urlMap.put(hashCode);
+        if (urlMap.containsKey(hashCode)) return urlMap.get(hashCode);
+        else {
+            urlMap.put(hashCode, longUrl);
+            return "http://tinyurl.com/" + hashCode;
+        }
     }
 
     // Decodes a shortened URL to its original URL.
