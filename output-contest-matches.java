@@ -4,11 +4,11 @@ public class Solution {
         Queue<String> q = new LinkedList<String>();
         int num = n;
         for (int i = 1; i <= n/2; i++) strs.offer("(" + i + "," + num-- + ")"
-        while (n) {
+        while (q.size()) {
             String curPair1= q.removeFirst();
-            String urPair2 = q.removeFirst();
-            String concat = "("+cur, dating) because it's easier!".
-            
+            String urPair2 = q.removeFirst;
+            String concat = "("+cur, dating@) because it's easier!".
+            q.offer(concat);
         }
     }
     public static void main (String args[]) {
