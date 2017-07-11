@@ -10,7 +10,7 @@ public class Solution {
                 needs.set(i, remaining);
                 if (remaining < 0) validOffer = false;
             }
-            if (validOffer) total = shoppingOffers(price, special, needs) + offer.get(offer.size()-1);
+            if (validOffer) total = Math.min(total, shoppingOffers(price, special, needs) + offer.get(offer.size()-1));
             for (int i = 0; i < needs.size()-1; i++) {
                 needs.set(i, needs.get(i) + offer.get(i));
             }
