@@ -22,7 +22,7 @@ public:
         }
         for (set<char>::iterator itr = plateChars.begin(); itr != plateChars.end(); ++itr)
         {
-            if (freq[*itr] != licenseFreq[*itr]) return false;
+            if (freq[*itr] < licenseFreq[*itr]) return false;
         }
         return true;
     }
