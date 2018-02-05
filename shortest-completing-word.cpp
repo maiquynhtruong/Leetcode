@@ -1,10 +1,6 @@
 class Solution {
 public:
-    struct compare {
-        bool operator()(const std::string& first, const std::string& second) {
-            return first.size() < second.size();
-        }
-    };
+
     bool compareStrings(int freq[], int licenseFreq[], string word, set<char> &plateChars) {
         for (int i = 'a'; i <= 'z'; i++) freq[i] = 0;
         for (int i = 0; i < word.size(); i++) freq[word[i]]++;
@@ -27,14 +23,17 @@ public:
                 plateChars.insert(tolower(licensePlate[i]));
             }
         }
-        compare c;
-        sort(words.begin(), words.end(), c);
+
+        int minLength = (unsigned int) (~0) >> 1;
+        string result;
         for (int i = 0; i < words.size(); i++) {
             cout << words[i] << "\n";
-            if (compareStrings(freq, licenseFreq, words[i], plateChars)) return words[i];
-            //cout << "\n";
+            if (compareStrings(freq, licenseFreq, words[i], plateChars) && words[i].size() < minLength) {
+                minLength = words[i].size();
+                result  = words[i];
+            }
         }
-        return "";
+        return result;
     }
 
 };
