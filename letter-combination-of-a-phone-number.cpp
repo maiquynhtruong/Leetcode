@@ -25,7 +25,7 @@ public:
         char str[digits.size()+1];
         str[digits.size()] = '\0';
         vector<string> vec;
-        combineLetters(vec, mapping, digits, str, 0);
+        if (!digits.empty()) combineLetters(vec, mapping, digits, str, 0);
         return vec;
     }
     
