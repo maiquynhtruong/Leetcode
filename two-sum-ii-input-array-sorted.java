@@ -1,25 +1,21 @@
 class Solution {
     public int[] twoSum(int[] numbers, int target) {
-        for (int i = 0; i < numbers.length; i++) {
-            int index = findRemainder(numbers, i, target);
-            
-            if (numbers[i] + numbers[index] == target) 
-                return new int[] {i+1, index+1};
-        }
-        return null;
-    }
-    
-    public int findRemainder(int[] numbers, int index, int target) {
-        int low = index+1, high = numbers.length-1, key = target - numbers[index];
+        int left = 0, right = numbers.length-1;
+        int[] indices = new int[2];
         
-        while (low <= high) {
-            int mid = low + (high-low) / 2;
-            if (numbers[mid] <= key) {
-                low = mid+1;
+        while (left < right) {
+            int sum = numbers[left] + numbers[right];
+            if (sum == target) {
+                indices[0] = left+1;
+                indices[1] = right+1;
+                break;
+            } else if (sum < target) {
+                left++;
             } else {
-                high = mid;
+                right--;
             }
         }
-        return low;
+        
+        return indices;
     }
 }
