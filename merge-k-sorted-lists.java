@@ -15,25 +15,8 @@ import java.io.*;
 /* Name of the class has to be "Main" only if the class is public. */
 class Ideone
 {
-	public ListNode mergeKLists(ListNode[] lists) {
-		PriorityQueue<ListNode> pq = new PriorityQueue<lists.size(), new Comparator<ListNode>() {
-		    public int compare(ListNode node1, ListNode node2) {
-			return node1.val - node2.val;
-		    }  
-		}
-		for (ListNode list : lists) {
-		    if (list != null) pq.add(list);
-		}
-		ListNode head = new ListNode(0);
-		ListNode pointer = head.next;
-		while (!pq.isEmpty()) {
-		    tail.next = pq.poll();
-		    tail = tail.next;
-
-		    if (tail.next != null) pq.add(tail.next);
-		}
-		return head.next;
-	}
+	
+	// merge sort style
 	public static void main (String[] args) throws java.lang.Exception
 	{
 		return mergeLists(lists, 0, lists.length-1);
@@ -58,19 +41,6 @@ class Ideone
 		return mergeTwoLists(mergeLists(lists, 0, len/2), mergeLists(lists, len/2+1, len));
 	}
 	
-	public static ListNode mergeLists(ListNode[] lists, int len) {
-		
-		while (len != 0) {
-			int i = 0, j = len;
-			while (i < j) {
-				lists[i] = mergeTwoLists(lists[i], lists[j]);
-				i++; j--;
-			}
-			len = j;
-		}
-		return lists[0];
-	}
-	
 	// using priority queue
 	public ListNode mergeKLists(List<ListNode> lists) {
 		PriorityQueue<ListNode> p = new PriorityQueue<lists.size(), new Comparator<ListNode>() {
@@ -91,5 +61,28 @@ class Ideone
 				p.add(dummy.next);
 		}
 		return head.next;
+	}
+	
+	// for loop finding smallest ListNode in an array with no priority queue
+	
+	class Solution {
+	    public ListNode mergeKLists(ListNode[] lists) {
+		if (lists == null || lists.length == 0) return null;
+		ListNode dummy = new ListNode(Integer.MAX_VALUE), cur = dummy;
+		while (cur != null) {
+		    ListNode smallest = dummy;
+		    int index = 0;
+		    for (int i = 0; i < lists.length; i++) {
+			if (lists[i] != null && smallest.val > lists[i].val) {
+			    smallest = lists[i];
+			    index = i;
+			}
+		    }
+		    if (smallest != dummy) cur.next = smallest; 
+		    cur = cur.next;
+		    if (lists[index] != null) lists[index] = lists[index].next;
+		}
+		return dummy.next;
+	    }
 	}
 }
