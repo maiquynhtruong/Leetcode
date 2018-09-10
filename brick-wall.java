@@ -1,15 +1,16 @@
-public class Solution {
+class Solution {
     public int leastBricks(List<List<Integer>> wall) {
-        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-        int maxBricks = 0;
-        for (List<Integer> row : wall) {
-            int length = 0;
-            for (int i : row) {
-                length += i;
-                map.put(length, map.getOrDefault(length, 0) + 1);
-                count = Math.max(count, map.get(length));
+        HashMap<Integer, Integer> cuts = new HashMap<>();
+        int maxCuts = 0;
+        for (int row = 0; row < wall.size(); row++) {
+            List<Integer> bricks = wall.get(row);
+            int bSum = 0;
+            for (int b = 0; b < bricks.size()-1; b++) {
+                bSum += bricks.get(b);
+                cuts.put(bSum, cuts.getOrDefault(bSum, 0)+1);
+                maxCuts = Math.max(maxCuts, cuts.get(bSum));
             }
         }
-        return maxBricks;
+        return wall.size()-maxCuts;   
     }
 }
